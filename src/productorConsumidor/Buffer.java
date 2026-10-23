@@ -14,6 +14,7 @@ public class Buffer {
 		private int dato = -1; //como dato nulo
 		private boolean lleno = false;
 		
+		/*
 		//Hebra Productora -> P
 		public synchronized boolean guardar(int dato) {
 			if(!lleno) {
@@ -35,4 +36,28 @@ public class Buffer {
 			return -1; //nos vemos obligado a ponerlo porque lo estamos haciendo con un int
 			
 		}
+		
+		*/
+		//2º clase
+		//Hebra Productora -> P
+				public synchronized boolean guardar(int dato) {
+					if(!lleno) {
+						this.dato = dato;
+						this.lleno = true;
+						System.out.println("Guardado valor: " + dato);
+						return true;
+					}
+					return false;
+				}
+				
+				//Hebra consumidora ->C
+				public synchronized int sacar() {
+					if(lleno) {
+						this.lleno = false;
+						System.out.println("Sacado valor: " + dato);
+						return dato;
+					}
+					return -1; //nos vemos obligado a ponerlo porque lo estamos haciendo con un int
+					
+				}
 }
